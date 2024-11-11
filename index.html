@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacking Prank</title>
+    <title>Hacking Simulation</title>
     <style>
-        /* Basic reset and background color */
+        /* Style for the terminal screen */
         body {
             background-color: black;
-            color: #00FF00; /* Green text for "hacker" look */
+            color: #00FF00; /* Green text for hacking vibe */
             font-family: monospace;
-            overflow: hidden;
             margin: 0;
             padding: 0;
             display: flex;
@@ -20,70 +19,120 @@
             height: 100vh;
         }
 
-        /* Animated scrolling text */
-        #hackingText {
-            font-size: 1.2em;
-            white-space: nowrap;
+        #terminal {
+            width: 90%;
+            max-width: 800px;
+            border: 2px solid #00FF00;
+            padding: 10px;
+            background-color: black;
+            color: #00FF00;
+            font-size: 18px;
+            white-space: pre-wrap;
             overflow: hidden;
-            border-right: .15em solid #00FF00;
-            animation: typing 3.5s steps(40, end) infinite, blink-caret .75s step-end infinite;
+            height: 400px;
+            box-sizing: border-box;
         }
 
-        /* Typing effect */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        /* Blinking cursor */
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #00FF00; }
-        }
-
-        /* Hidden image button */
-        #revealImageButton {
+        /* Button to trigger actions */
+        #revealButton {
             margin-top: 20px;
             padding: 10px 20px;
-            font-size: 1em;
-            color: #00FF00;
             background-color: black;
+            color: #00FF00;
             border: 2px solid #00FF00;
             cursor: pointer;
-            display: inline-block;
+            font-size: 1em;
+            display: none;
         }
 
-        #revealImageButton:hover {
+        #revealButton:hover {
             background-color: #00FF00;
             color: black;
         }
 
-        /* Hidden image */
+        /* Hidden image styling */
         #hiddenImage {
             display: none;
+            max-width: 90%;
             margin-top: 20px;
-            max-width: 100%;
             border: 5px solid #00FF00;
         }
+
     </style>
 </head>
 <body>
 
-    <!-- Scrolling text effect for hacking prank -->
-    <div id="hackingText">ACCESSING SYSTEM... PASSWORD: *********</div>
+    <!-- Terminal for displaying simulated commands -->
+    <div id="terminal"></div>
 
-    <!-- Button to reveal image -->
-    <button id="revealImageButton" onclick="showImage()">Click to Reveal Secret</button>
+    <!-- Button to reveal the image -->
+    <button id="revealButton" onclick="showImage()">Reveal Secret</button>
 
-    <!-- Hidden image that will be revealed -->
+    <!-- Hidden Image (initially hidden) -->
     <img id="hiddenImage" src="monkey.jpg" alt="Hidden Secret Image">
 
     <script>
-        // Function to reveal the hidden image when button is pressed
-        function showImage() {
-            const image = document.getElementById("hiddenImage");
-            image.style.display = "block";
+        let terminal = document.getElementById("terminal");
+        let revealButton = document.getElementById("revealButton");
+        let hiddenImage = document.getElementById("hiddenImage");
+
+        const commands = [
+            "Initializing...\n",
+            "Connecting to target...\n",
+            "Bypassing firewall...\n",
+            "Authenticating user...\n",
+            "Access granted.\n",
+            "Error: Invalid credentials.\n",
+            "Decrypting system files...\n",
+            "Accessing secure database...\n",
+            "Loading private data...\n",
+            "Error: Data corruption detected.\n",
+            "Accessing email server...\n",
+            "Opening secret files...\n",
+            "Warning: Security breach detected.\n",
+            "Secret files unlocked.\n",
+            "Revealing secret...\n",
+        ];
+
+        function typeCommand(command, callback) {
+            let i = 0;
+            let interval = setInterval(function () {
+                terminal.textContent += command.charAt(i);
+                i++;
+                if (i === command.length) {
+                    clearInterval(interval);
+                    callback();
+                }
+            }, 50); // Adjust typing speed
         }
+
+        function simulateHacking() {
+            let currentCommandIndex = 0;
+
+            function runNextCommand() {
+                if (currentCommandIndex < commands.length) {
+                    typeCommand(commands[currentCommandIndex], () => {
+                        currentCommandIndex++;
+                        terminal.textContent += "\n";
+                        runNextCommand();
+                    });
+                } else {
+                    revealButton.style.display = "block"; // Show the reveal button when done
+                }
+            }
+
+            runNextCommand();
+        }
+
+        function showImage() {
+            hiddenImage.style.display = "block"; // Show the hidden image
+            terminal.textContent += "\n[System] Security override successful. Secret revealed!";
+        }
+
+        // Start hacking simulation when the page loads
+        window.onload = function () {
+            simulateHacking();
+        };
     </script>
 
 </body>
