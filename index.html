@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacking Prank</title>
+    <style>
+        /* Basic reset and background color */
+        body {
+            background-color: black;
+            color: #00FF00; /* Green text for "hacker" look */
+            font-family: monospace;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Animated scrolling text */
+        #hackingText {
+            font-size: 1.2em;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: .15em solid #00FF00;
+            animation: typing 3.5s steps(40, end) infinite, blink-caret .75s step-end infinite;
+        }
+
+        /* Typing effect */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Blinking cursor */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00FF00; }
+        }
+
+        /* Hidden image button */
+        #revealImageButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #00FF00;
+            background-color: black;
+            border: 2px solid #00FF00;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        #revealImageButton:hover {
+            background-color: #00FF00;
+            color: black;
+        }
+
+        /* Hidden image */
+        #hiddenImage {
+            display: none;
+            margin-top: 20px;
+            max-width: 100%;
+            border: 5px solid #00FF00;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scrolling text effect for hacking prank -->
+    <div id="hackingText">ACCESSING SYSTEM... PASSWORD: *********</div>
+
+    <!-- Button to reveal image -->
+    <button id="revealImageButton" onclick="showImage()">Click to Reveal Secret</button>
+
+    <!-- Hidden image that will be revealed -->
+    <img id="hiddenImage" src="monkey.jpg" alt="Hidden Secret Image">
+
+    <script>
+        // Function to reveal the hidden image when button is pressed
+        function showImage() {
+            const image = document.getElementById("hiddenImage");
+            image.style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
